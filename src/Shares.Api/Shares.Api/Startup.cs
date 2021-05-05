@@ -15,6 +15,7 @@ namespace Shares.Api
 {
     public class Startup
     {
+        private const string APP_NAME = "Shares API";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,6 +27,11 @@ namespace Shares.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSwaggerGen(c => 
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = $"{APP_NAME}", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,11 +42,12 @@ namespace Shares.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{APP_NAME} v1"));
+
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
