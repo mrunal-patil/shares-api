@@ -15,7 +15,9 @@ namespace Shares.Api.Controllers
             if (file.IsValid() == false)
                 return BadRequest("File not in correct format. File should be in .xlsx format.");
 
-            return Ok();
+            var transactions = await file.Parse();
+
+            return Ok(transactions);
         }
     }
 }
