@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shares.Domain.Uescases;
 
 namespace Shares.Api
 {
@@ -32,6 +33,8 @@ namespace Shares.Api
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = $"{APP_NAME}", Version = "v1" });
             });
+
+            services.AddScoped<GetShareHistory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +50,6 @@ namespace Shares.Api
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

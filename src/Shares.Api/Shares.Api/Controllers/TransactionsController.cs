@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shares.Api.Extensions;
 using System.Threading.Tasks;
+using Shares.Domain.Uescases;
 
 namespace Shares.Api.Controllers
 {
@@ -9,6 +10,13 @@ namespace Shares.Api.Controllers
     [Route("api/transactions")]
     public class TransactionsController : ControllerBase
     {
+        private readonly GetShareHistory _getShareHistory;
+
+        public TransactionsController(GetShareHistory getShareHistory)
+        {
+            _getShareHistory = getShareHistory;
+        }
+
         [HttpPost("upload")]
         public async Task<IActionResult> Upload(IFormFile file)
         {
@@ -17,7 +25,9 @@ namespace Shares.Api.Controllers
 
             var transactions = await file.Parse();
 
-            return Ok(transactions);
+            var entities = transactions.ToDomainEntities();
+
+            return Ok(entities);
         }
     }
 }
