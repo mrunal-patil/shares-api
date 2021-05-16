@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shares.Api.Extensions;
-using Shares.Domain.Uescases;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Shares.Domain.Usecases;
 
 namespace Shares.Api.Controllers
 {

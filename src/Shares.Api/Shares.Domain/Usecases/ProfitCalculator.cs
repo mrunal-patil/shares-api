@@ -1,8 +1,8 @@
-﻿using Shares.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Shares.Domain.Entities;
 
-namespace Shares.Domain.Uescases
+namespace Shares.Domain.Usecases
 {
     public class ProfitCalculator
     {
