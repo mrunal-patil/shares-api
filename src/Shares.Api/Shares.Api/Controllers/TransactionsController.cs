@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shares.Api.Extensions;
-using System.Threading.Tasks;
 using Shares.Domain.Uescases;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Shares.Api.Controllers
 {
@@ -10,11 +11,11 @@ namespace Shares.Api.Controllers
     [Route("api/transactions")]
     public class TransactionsController : ControllerBase
     {
-        private readonly GetShareHistory _getShareHistory;
+        private readonly ProfitCalculator _profitCalculator;
 
-        public TransactionsController(GetShareHistory getShareHistory)
+        public TransactionsController(ProfitCalculator profitCalculator)
         {
-            _getShareHistory = getShareHistory;
+            _profitCalculator = profitCalculator;
         }
 
         [HttpPost("upload")]
@@ -25,9 +26,19 @@ namespace Shares.Api.Controllers
 
             var transactions = await file.Parse();
 
-            var entities = transactions.ToDomainEntities();
+            var shares = transactions.ToDomainEntities();
 
-            return Ok(entities);
+            var sharesToReturn = new List<Dtos.Share>();
+            foreach (var share in shares)
+            {
+                var profitPerTransaction = _profitCalculator.Get(share);
+
+                var shareDto = share.ToDto(profitPerTransaction);
+
+                sharesToReturn.Add(shareDto);
+            }
+
+            return Ok(sharesToReturn);
         }
     }
 }

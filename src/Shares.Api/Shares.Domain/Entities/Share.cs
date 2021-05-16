@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Shares.Domain.Entities
 {
@@ -8,13 +8,20 @@ namespace Shares.Domain.Entities
     {
         public string Isin { get; }
         public string Name { get; }
-        public IReadOnlyCollection<Transaction> Transactions { get; }
+        public List<Transaction> Transactions { get; private set; }
 
-        public Share(string name, string isin, IReadOnlyCollection<Transaction> transactions)
+        public Share(string name, string isin)
         {
             Isin = isin;
             Name = name;
-            Transactions = transactions ?? new List<Transaction>();
+            Transactions = new List<Transaction>();
         }
+
+        public void AddTransaction(DateTime transactionDate, int transactionQuantity, decimal transactionCost)
+        {
+            Transactions.Add(new Transaction(this, transactionDate, transactionQuantity, transactionCost));
+            Transactions = Transactions.OrderBy(t => t.Date).ToList();
+        }
+
     }
 }
