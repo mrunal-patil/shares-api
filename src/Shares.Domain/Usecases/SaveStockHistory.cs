@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Shares.Domain.Entities;
 
 namespace Shares.Domain.Usecases
 {
@@ -14,10 +15,10 @@ namespace Shares.Domain.Usecases
             _downloadStockHistory = downloadStockHistory;
         }
 
-        public async Task<IReadOnlyCollection<Shares.Domain.Entities.StockHistory>> Invoke(DateTime startDate, DateTime endDate, string ticker)
+        public async Task<IReadOnlyCollection<StockHistory>> Invoke(DateTime startDate, DateTime endDate, string ticker)
         {
-            // get data needed to be saved from yahoo-finance.
             var stockHistory = await _downloadStockHistory.GetByDateAndTicker(startDate, endDate, ticker);
+            
             return stockHistory;
 
             // save the data retrieved from yahoo-finance.
