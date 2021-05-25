@@ -11,5 +11,24 @@ namespace Shares.Domain.Entities
         public decimal HighestPrice { get; }
         public decimal LowestPrice { get; }
         public int Volume { get; }
+
+        public StockHistory(
+            string ticker,
+            DateTime date,
+            decimal openingPrice,
+            decimal closingPrice,
+            decimal highestPrice,
+            decimal lowestPrice,
+            int volume
+        )
+        {
+            Ticker = ticker;
+            Date = date;
+            OpeningPrice = openingPrice;
+            ClosingPrice = closingPrice;
+            HighestPrice = highestPrice;
+            LowestPrice = lowestPrice;
+            Volume = volume;
+        }
     }
 }
