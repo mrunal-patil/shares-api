@@ -1,21 +1,20 @@
+using System;
+using System.Net.Http;
+using Download.StockHistory.Adapter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Shares.Domain.Ports;
+using Shares.Domain.Usecases;
 
 namespace Shares.Api
 {
     public class Startup
     {
         private const string APP_NAME = "Shares API";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,18 +22,22 @@ namespace Shares.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
-            services.AddSwaggerGen(c => 
+            services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = $"{APP_NAME}", Version = "v1" });
+                c.SwaggerDoc("v1",
+                    new Microsoft.OpenApi.Models.OpenApiInfo {Title = $"{APP_NAME}", Version = "v1"});
             });
+
+            services.AddScoped<SaveStockHistory>();
+            
+            services.AddHttpClient<IDownloadStockHistory, StockHistoryDownloader>(client =>
+                client.BaseAddress = new Uri(Configuration["YahooFinanceApi:Url"]));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -47,12 +50,8 @@ namespace Shares.Api
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            // app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

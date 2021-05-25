@@ -6,8 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shares.Api;
 
-namespace Shares.Api
+namespace Shares.WebService
 {
     public class Program
     {

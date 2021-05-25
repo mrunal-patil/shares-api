@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="ExcelDataReader" Version="3.6.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\adapters\Download.StockHistory.Adapter\Download.StockHistory.Adapter.csproj" />
+	  <ProjectReference Include="..\Shares.Domain\Shares.Domain.csproj" />
+	</ItemGroup>
+
+</Project>
