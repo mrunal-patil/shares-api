@@ -26,10 +26,10 @@ namespace Shares.WebService.Controllers
                 if (stockHistoryDownload.StartDate.Date > DateTime.Today || stockHistoryDownload.EndDate.Date > DateTime.Today)
                     return BadRequest("Start date or end date can not be in the future.");
 
-                await _saveStockHistory.Invoke(stockHistoryDownload.StartDate, stockHistoryDownload.EndDate,
+                var stockHistory = await _saveStockHistory.Invoke(stockHistoryDownload.StartDate, stockHistoryDownload.EndDate,
                     stockHistoryDownload.Ticker);
 
-                return Ok(stockHistoryDownload);
+                return Ok(stockHistory);
             }
             catch (Exception exception)
             {
