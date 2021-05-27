@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Shares.Domain.Ports;
+using StockHistoryEntity = Shares.Domain.Entities.StockHistory;
 
 namespace Download.StockHistory.Adapter
 {
@@ -16,7 +17,7 @@ namespace Download.StockHistory.Adapter
             _httpClient = httpClient;
         }
 
-        public async Task<IReadOnlyCollection<Shares.Domain.Entities.StockHistory>> GetByDateAndTicker(
+        public async Task<IReadOnlyCollection<StockHistoryEntity>> GetByDateAndTicker(
             DateTime startDate,
             DateTime endDate,
             string ticker
@@ -41,10 +42,10 @@ namespace Download.StockHistory.Adapter
                    $"?period1={period1}&period2={period2}&interval=1d&events=history";
         }
 
-        private IReadOnlyCollection<Shares.Domain.Entities.StockHistory> ConvertStockHistory (string content, string ticker)
+        private IReadOnlyCollection<StockHistoryEntity> ConvertStockHistory (string content, string ticker)
         {
             var stockHistoryRecords = content.Split("\n".ToCharArray());
-            var stockHistory = new List<Shares.Domain.Entities.StockHistory>();
+            var stockHistory = new List<StockHistoryEntity>();
 
             foreach (var stockHistoryRecord in stockHistoryRecords.Where(s => s != stockHistoryRecords.First()))
             {
@@ -68,7 +69,7 @@ namespace Download.StockHistory.Adapter
                 if (!int.TryParse(stockHistoryAsString[6], out var volume))
                     throw new ArgumentException($"Cannot convert volume {stockHistoryAsString[6]} into integer.");
 
-                var stockHistoryItem = new Shares.Domain.Entities.StockHistory(
+                var stockHistoryItem = new StockHistoryEntity(
                     ticker,
                     date,
                     openingPrice,
