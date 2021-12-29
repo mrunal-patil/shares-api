@@ -19,7 +19,7 @@ namespace Shares.Domain.Usecases
         {
             var stockHistory = await _downloadStockHistory.GetByDateAndTicker(startDate, endDate, ticker);
 
-
+            // save stock history to the database.
             
             return stockHistory;
         }

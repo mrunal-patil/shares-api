@@ -12,10 +12,12 @@ namespace Shares.WebService.Controllers
     public class StockHistoryController : ControllerBase
     {
         private readonly SaveStockHistory _saveStockHistory;
+        private readonly GetCycles _getCycles;
 
-        public StockHistoryController(SaveStockHistory saveStockHistory)
+        public StockHistoryController(SaveStockHistory saveStockHistory, GetCycles getCycles)
         {
             _saveStockHistory = saveStockHistory;
+            _getCycles = getCycles;
         }
 
         [HttpPost]
@@ -30,6 +32,24 @@ namespace Shares.WebService.Controllers
                     stockHistoryDownload.Ticker);
 
                 return Ok(stockHistory);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, exception);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCycles(DateTime startDate, DateTime endDate, string ticker)
+        {
+            try
+            {
+                if (startDate > DateTime.Today || endDate.Date > DateTime.Today)
+                    return BadRequest("Start date or end date can not be in the future.");
+
+                var cycles = await _getCycles.Invoke(startDate, endDate, ticker);
+
+                return Ok(cycles);
             }
             catch (Exception exception)
             {

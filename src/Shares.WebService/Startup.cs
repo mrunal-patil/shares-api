@@ -33,6 +33,7 @@ namespace Shares.Api
             });
 
             services.AddScoped<SaveStockHistory>();
+            services.AddScoped<GetCycles>();
             
             services.AddHttpClient<IDownloadStockHistory, StockHistoryDownloader>(client =>
                 client.BaseAddress = new Uri(Configuration["YahooFinanceApi:Url"]));
