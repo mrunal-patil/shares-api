@@ -49,24 +49,27 @@ namespace Download.StockHistory.Adapter
 
             foreach (var stockHistoryRecord in stockHistoryRecords.Where(s => s != stockHistoryRecords.First()))
             {
-                var stockHistoryAsString = stockHistoryRecord.Split(",".ToCharArray());                
-      
+                var stockHistoryAsString = stockHistoryRecord.Split(",".ToCharArray());
+
+                var numberStyle = System.Globalization.NumberStyles.Number;
+                var culture = System.Globalization.CultureInfo.InvariantCulture;
+
                 if (!DateTime.TryParse(stockHistoryAsString[0], out var date))
                     throw new ArgumentException($"Cannot convert {stockHistoryAsString[0]} into date.");
 
-                if (!decimal.TryParse(stockHistoryAsString[1], out var openingPrice))
+                if (!decimal.TryParse(stockHistoryAsString[1], numberStyle, culture, out var openingPrice))
                     throw new ArgumentException($"Cannot convert opening price {stockHistoryAsString[1]} into decimal.");
 
-                if (!decimal.TryParse(stockHistoryAsString[2], out var highestPrice))
+                if (!decimal.TryParse(stockHistoryAsString[2], numberStyle, culture, out var highestPrice))
                     throw new ArgumentException($"Cannot convert highest price {stockHistoryAsString[2]} into decimal.");
 
-                if (!decimal.TryParse(stockHistoryAsString[3], out var lowestPrice))
+                if (!decimal.TryParse(stockHistoryAsString[3], numberStyle, culture, out var lowestPrice))
                     throw new ArgumentException($"Cannot convert lowest price {stockHistoryAsString[3]} into decimal.");
 
-                if (!decimal.TryParse(stockHistoryAsString[4], out var closingPrice))
+                if (!decimal.TryParse(stockHistoryAsString[4], numberStyle, culture, out var closingPrice))
                     throw new ArgumentException($"Cannot convert closing price {stockHistoryAsString[4]} into decimal.");
 
-                if (!int.TryParse(stockHistoryAsString[6], out var volume))
+                if (!int.TryParse(stockHistoryAsString[6], numberStyle, culture, out var volume))
                     throw new ArgumentException($"Cannot convert volume {stockHistoryAsString[6]} into integer.");
 
                 var stockHistoryItem = new StockHistoryEntity(

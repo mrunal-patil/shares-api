@@ -18,10 +18,10 @@ namespace Shares.Domain.Usecases
         public async Task<IReadOnlyCollection<StockHistory>> Invoke(DateTime startDate, DateTime endDate, string ticker)
         {
             var stockHistory = await _downloadStockHistory.GetByDateAndTicker(startDate, endDate, ticker);
+
+
             
             return stockHistory;
-
-            // save the data retrieved from yahoo-finance.
         }
     }
 }
