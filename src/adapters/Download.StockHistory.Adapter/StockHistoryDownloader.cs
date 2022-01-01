@@ -75,11 +75,8 @@ namespace Download.StockHistory.Adapter
                 var stockHistoryItem = new StockHistoryEntity(
                     ticker,
                     date,
-                    openingPrice,
                     closingPrice,
-                    highestPrice,
-                    lowestPrice,
-                    volume
+                    lowestPrice
                 );
 
                 stockHistory.Add(stockHistoryItem);
