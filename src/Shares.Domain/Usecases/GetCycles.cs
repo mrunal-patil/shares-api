@@ -32,7 +32,11 @@ namespace Shares.Domain.Usecases
                     .Where(s => s.Date > startCycle.Date)
                     .FirstOrDefault(s => s.ClosingPrice >= startCycle.ClosingPrice);
 
-                var cycle = new Cycle(orderedStockHistory.GetRange(i, orderedStockHistory.IndexOf(endOfCycle) - i + 1));
+                var cycle = new Cycle(
+                    orderedStockHistory.GetRange(i, orderedStockHistory.IndexOf(endOfCycle) - i + 1),
+                    default,
+                    default);
+
                 cycles.Add(cycle);
 
                 if (endOfCycle == null)

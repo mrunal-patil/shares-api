@@ -4,6 +4,7 @@ using Shares.WebService.Dtos.Request;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Shares.Domain;
 
 namespace Shares.WebService.Controllers
 {
@@ -13,11 +14,13 @@ namespace Shares.WebService.Controllers
     {
         private readonly SaveStockHistory _saveStockHistory;
         private readonly GetCycles _getCycles;
+        private readonly CreateMatrix _matrixCreator;
 
-        public StockHistoryController(SaveStockHistory saveStockHistory, GetCycles getCycles)
+        public StockHistoryController(SaveStockHistory saveStockHistory, GetCycles getCycles, CreateMatrix matrixCreator)
         {
             _saveStockHistory = saveStockHistory;
             _getCycles = getCycles;
+            _matrixCreator = matrixCreator;
         }
 
         [HttpPost]
@@ -55,6 +58,14 @@ namespace Shares.WebService.Controllers
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, exception);
             }
+        }
+
+        [HttpGet("/cycles-matrix")]
+        public async Task<IActionResult> GetCyclesMatrix()
+        {
+            var matrix = await _matrixCreator.Create();
+
+            return Ok(matrix);
         }
     }
 }
