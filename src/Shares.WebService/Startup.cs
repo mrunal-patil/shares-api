@@ -36,6 +36,7 @@ namespace Shares.Api
             services.AddScoped<SaveStockHistory>();
             services.AddScoped<GetCycles>();
             services.AddScoped<CreateMatrix>();
+            services.AddScoped<AverageCalculator>();
 
             services.AddScoped<ICreateCycles, CyclesCreator>();
 

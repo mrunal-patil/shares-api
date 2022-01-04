@@ -12,22 +12,40 @@ namespace Shares.Domain.Entities
             Rows = new List<Row>();
         }
 
-        public void AddRow(List<int> valuesOfTheRow)
+        public void AddRow(List<decimal> valuesOfTheRow)
         {
             if (valuesOfTheRow == null)
                 throw new ArgumentNullException(nameof(valuesOfTheRow));
 
             Rows.Add(new Row(valuesOfTheRow));
         }
+
+        public void AddColumn(List<decimal> valuesOfTheColumn)
+        {
+            if (Rows.Count < valuesOfTheColumn.Count)
+            {
+                var rowsToAdd = valuesOfTheColumn.Count - Rows.Count;
+                while (rowsToAdd > 0)
+                {
+                    AddRow(new List<decimal>());
+                    rowsToAdd--;
+                }
+            }
+
+            for (var i = 0; i < Rows.Count; i++)
+            {
+                Rows[i].Elements.Add(valuesOfTheColumn[i]);
+            }
+        }
     }
 
     public class Row
     {
-        public List<int> NumberOfCycles { get; }
+        public List<decimal> Elements { get; }
 
-        public Row(List<int> numberOfCycles)
+        public Row(List<decimal> elements)
         {
-            NumberOfCycles = numberOfCycles ?? new List<int>();
+            Elements = elements ?? new List<decimal>();
         }
     }
 }

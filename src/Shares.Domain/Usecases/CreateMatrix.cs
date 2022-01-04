@@ -1,4 +1,5 @@
-﻿using Shares.Domain.Entities;
+﻿using System;
+using Shares.Domain.Entities;
 using Shares.Domain.Ports;
 using Shares.Domain.Services;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace Shares.Domain.Usecases
             return matrix;
         }
 
-        private List<int> GetValuesForRow(List<Cycle> cycles)
+        private List<decimal> GetValuesForRow(List<Cycle> cycles)
         {
             return cycles
                 .GroupBy(c => c.PercentageInterval.LowerLimit)
@@ -53,6 +54,7 @@ namespace Shares.Domain.Usecases
                     .GroupBy(x => x.YearInterval.UpperLimit)
                     .OrderByDescending(x => x.Key)
                     .Select(x => x.Count(c => c.StockHistory != null))
+                    .Select(Convert.ToDecimal)
                 ).ToList();
         }
     }

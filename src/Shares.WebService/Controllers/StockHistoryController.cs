@@ -4,7 +4,6 @@ using Shares.WebService.Dtos.Request;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Shares.Domain;
 
 namespace Shares.WebService.Controllers
 {
