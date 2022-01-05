@@ -16,20 +16,19 @@ namespace Shares.Domain.Usecases
             _stockHistoryDownloader = downloadStockHistory;
         }
 
-        public async Task<Matrix> Get()
+        public async Task<Matrix> Get(AveragedOver averagedOver)
         {
             var matrix = new Matrix();
             foreach (var ticker in Constants.Tickers)
             {
                 var startDate = new DateTime(1996, 01, 01);
+                var endDate = CalculateEndDate(startDate, averagedOver);
 
                 var stockHistory = await _stockHistoryDownloader.GetByDateAndTicker(startDate, DateTime.Today, ticker);
 
                 var averages = new List<decimal>();
                 while (startDate <= DateTime.Today)
                 {
-                    var endDate = startDate.AddMonths(3);
-
                     var closingPrices = stockHistory.Where(s => s.Date >= startDate.Date && s.Date < endDate.Date)
                         .Select(s => s.ClosingPrice)
                         .ToList();
@@ -40,13 +39,29 @@ namespace Shares.Domain.Usecases
 
                     averages.Add(Math.Round(average, 2));
 
-                    startDate = endDate;
+                    startDate = startDate.AddMonths(3);
+                    endDate = endDate.AddMonths(3);
                 }
 
                 matrix.AddColumn(averages);
             }
 
             return matrix;
+        }
+
+        public DateTime CalculateEndDate(DateTime startDate, AveragedOver averagedOver)
+        {
+            switch (averagedOver)
+            {
+                case AveragedOver.OneQuarter:
+                    return startDate.AddMonths(3);
+                case AveragedOver.TwoQuarters:
+                    return startDate.AddMonths(6);
+                case AveragedOver.Year:
+                    return startDate.AddYears(1);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(averagedOver), averagedOver, null);
+            }
         }
     }
 }
