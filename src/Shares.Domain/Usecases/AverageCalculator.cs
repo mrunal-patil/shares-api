@@ -21,6 +21,7 @@ namespace Shares.Domain.Usecases
             var matrix = new Matrix();
             foreach (var ticker in Constants.Tickers)
             {
+                matrix.Tickers.Add(ticker);
                 var startDate = new DateTime(1996, 01, 01);
                 var endDate = CalculateEndDate(startDate, averagedOver);
 

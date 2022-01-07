@@ -5,11 +5,13 @@ namespace Shares.Domain.Entities
 {
     public class Matrix
     {
+        public List<string> Tickers { get; set; }
         public List<Row> Rows { get; }
 
         public Matrix()
         {
             Rows = new List<Row>();
+            Tickers = new List<string>();
         }
 
         public void AddRow(List<decimal> valuesOfTheRow)

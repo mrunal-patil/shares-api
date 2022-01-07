@@ -35,10 +35,12 @@ namespace Shares.Api
 
             services.AddScoped<SaveStockHistory>();
             services.AddScoped<GetCycles>();
-            services.AddScoped<CreateMatrix>();
+            services.AddScoped<GetCyclesByPercentageAndDateInterval>();
+            services.AddScoped<StopLossIndicator>();
             services.AddScoped<AverageCalculator>();
 
             services.AddScoped<ICreateCycles, CyclesCreator>();
+            services.AddScoped<ICreateStopLossCycles, StopLossCyclesCreator>();
 
             services.AddHttpClient<IDownloadStockHistory, StockHistoryDownloader>(client =>
                 client.BaseAddress = new Uri(Configuration["YahooFinanceApi:Url"]));

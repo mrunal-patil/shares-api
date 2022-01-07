@@ -7,6 +7,8 @@ namespace Shares.Domain.Entities
     {
         public IReadOnlyCollection<StockHistory> StockHistory { get; }
         public decimal LowestPoint => StockHistory.Select(s => s.LowestPrice).Min();
+        public StockHistory LowestPointStockHistory => StockHistory.First(s => s.LowestPrice == LowestPoint);
+        public decimal StartingPoint => StockHistory.First().ClosingPrice;
         public PercentageInterval PercentageInterval { get; }
         public YearInterval YearInterval { get; }
 

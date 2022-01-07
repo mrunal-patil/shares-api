@@ -1,25 +1,27 @@
 ﻿using System;
-using Shares.Domain.Entities;
-using Shares.Domain.Ports;
-using Shares.Domain.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Shares.Domain.Entities;
+using Shares.Domain.Ports;
+using Shares.Domain.Services;
 
 namespace Shares.Domain.Usecases
 {
-    public class CreateMatrix
+    public class StopLossIndicator
     {
-        private readonly ICreateCycles _cyclesCreator;
+        private readonly ICreateStopLossCycles _stopLossCyclesCreator;
         private readonly IDownloadStockHistory _stockHistoryDownloader;
-        
-        public CreateMatrix(ICreateCycles cyclesCreator, IDownloadStockHistory stockHistoryDownloader)
+
+        public StopLossIndicator(
+            ICreateStopLossCycles stopLossCyclesCreator,
+            IDownloadStockHistory stockHistoryDownloader)
         {
-            _cyclesCreator = cyclesCreator;
+            _stopLossCyclesCreator = stopLossCyclesCreator;
             _stockHistoryDownloader = stockHistoryDownloader;
         }
 
-        public async Task<Matrix> Create()
+        public async Task<Matrix> Invoke()
         {
             var matrix = new Matrix();
             foreach (var ticker in Constants.Tickers)
@@ -32,9 +34,9 @@ namespace Shares.Domain.Usecases
                         yearInterval.UpperLimit,
                         ticker);
 
-                    foreach (var percentageInterval in Constants.PercentageIntervals)
+                    foreach (var percentageInterval in Constants.PercentageIntervalsForStopLoss)
                     {
-                        cycles.AddRange(_cyclesCreator.Create(stockHistory, percentageInterval, yearInterval));
+                        cycles.AddRange(_stopLossCyclesCreator.Create(stockHistory, percentageInterval, yearInterval));
                     }
                 }
 

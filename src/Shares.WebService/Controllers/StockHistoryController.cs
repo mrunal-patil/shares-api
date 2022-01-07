@@ -13,9 +13,9 @@ namespace Shares.WebService.Controllers
     {
         private readonly SaveStockHistory _saveStockHistory;
         private readonly GetCycles _getCycles;
-        private readonly CreateMatrix _matrixCreator;
+        private readonly GetCyclesByPercentageAndDateInterval _matrixCreator;
 
-        public StockHistoryController(SaveStockHistory saveStockHistory, GetCycles getCycles, CreateMatrix matrixCreator)
+        public StockHistoryController(SaveStockHistory saveStockHistory, GetCycles getCycles, GetCyclesByPercentageAndDateInterval matrixCreator)
         {
             _saveStockHistory = saveStockHistory;
             _getCycles = getCycles;
@@ -39,32 +39,6 @@ namespace Shares.WebService.Controllers
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, exception);
             }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetCycles(DateTime startDate, DateTime endDate, string ticker)
-        {
-            try
-            {
-                if (startDate > DateTime.Today || endDate.Date > DateTime.Today)
-                    return BadRequest("Start date or end date can not be in the future.");
-
-                var cycles = await _getCycles.Invoke(startDate, endDate, ticker);
-
-                return Ok(cycles);
-            }
-            catch (Exception exception)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, exception);
-            }
-        }
-
-        [HttpGet("/cycles-matrix")]
-        public async Task<IActionResult> GetCyclesMatrix()
-        {
-            var matrix = await _matrixCreator.Create();
-
-            return Ok(matrix);
         }
     }
 }
