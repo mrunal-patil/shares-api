@@ -26,6 +26,7 @@ namespace Shares.Domain.Usecases
             var matrix = new Matrix();
             foreach (var ticker in Constants.Tickers)
             {
+                matrix.Tickers.Add(ticker);
                 List<Cycle> cycles = new List<Cycle>();
                 foreach (var yearInterval in Constants.YearIntervals)
                 {

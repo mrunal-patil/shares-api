@@ -42,19 +42,19 @@ namespace Shares.Domain
             "FTK",
             "VTSMX",
             "CSSPX",
-            "VUSD",
-            "BRK",
+            "VUSD.L",
+            "BRK-B",
             "MA",
             "AIR",
             "OXY",
             "TWTR",
             "ORCL",
-            "AD",
+            "AD.AS",
             "BABA",
             "SRG",
             "SAP",
             "INTC",
-            "RDS",
+            "RDS-A",
             "BP"
         };
 

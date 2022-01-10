@@ -38,6 +38,7 @@ namespace Shares.Api
             services.AddScoped<GetCyclesByPercentageAndDateInterval>();
             services.AddScoped<StopLossIndicator>();
             services.AddScoped<AverageCalculator>();
+            services.AddScoped<CurrentPerformanceCalculator>();
 
             services.AddScoped<ICreateCycles, CyclesCreator>();
             services.AddScoped<ICreateStopLossCycles, StopLossCyclesCreator>();
