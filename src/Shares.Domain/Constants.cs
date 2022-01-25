@@ -8,7 +8,8 @@ namespace Shares.Domain
     {
         internal static List<string> Tickers = new List<string>
         {
-            //"TSLA"
+            //"TSLA",
+            //"AAPL"
             "EXXT.DE",
             "XLKS.MI",
             "%5EIXIC",
@@ -39,7 +40,7 @@ namespace Shares.Domain
             "STNE",
             "DIS",
             "ABNB",
-            "FTK",
+            "FTK.DE",
             "VTSMX",
             "CSSPX",
             "VUSD.L",
@@ -79,9 +80,13 @@ namespace Shares.Domain
 
         internal static List<PercentageIntervalForStopLoss> PercentageIntervalsForStopLoss = new List<PercentageIntervalForStopLoss>
         {
-            new PercentageIntervalForStopLoss(new PercentageInterval(7, 10), 5, 10),
-            new PercentageIntervalForStopLoss(new PercentageInterval(10, 15), 7, 15),
-            new PercentageIntervalForStopLoss(new PercentageInterval(15, 20), 10, 20)
+            new PercentageIntervalForStopLoss(7, 5),
+            new PercentageIntervalForStopLoss(10, 7),
+            new PercentageIntervalForStopLoss(15, 10),
+            new PercentageIntervalForStopLoss(20, 15),
+            new PercentageIntervalForStopLoss(25, 20),
+            new PercentageIntervalForStopLoss(30, 25),
+            new PercentageIntervalForStopLoss(40, 30)
         };
     }
 }

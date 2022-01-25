@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shares.Domain.Entities
+﻿namespace Shares.Domain.Entities
 {
     public class PercentageIntervalForStopLoss
     {
-        public PercentageInterval FirstDropPercentageInterval { get; }
-        public int MaximumRiseAfterFirstDrop { get; }
-        public int MinimumValueForSecondDrop { get; }
+        public int FirstDroppingPoint { get; }
+        public int SecondDroppingPoint { get; }
 
-        public PercentageIntervalForStopLoss(
-            PercentageInterval firstDropPercentageInterval,
-            int maximumRiseAfterFirstDrop,
-            int minimumValueForSecondDrop)
+        public PercentageIntervalForStopLoss(int firstDroppingPoint, int secondDroppingPoint)
         {
-            FirstDropPercentageInterval = firstDropPercentageInterval;
-            MaximumRiseAfterFirstDrop = maximumRiseAfterFirstDrop;
-            MinimumValueForSecondDrop = minimumValueForSecondDrop;
+            SecondDroppingPoint = secondDroppingPoint;
+            FirstDroppingPoint = firstDroppingPoint;
         }
     }
 }

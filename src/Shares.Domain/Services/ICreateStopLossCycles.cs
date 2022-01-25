@@ -5,9 +5,6 @@ namespace Shares.Domain.Services
 {
     public interface ICreateStopLossCycles
     {
-        IReadOnlyCollection<Cycle> Create(
-            IReadOnlyCollection<StockHistory> stockHistory,
-            PercentageIntervalForStopLoss percentageInterval,
-            YearInterval yearInterval);
+        IReadOnlyCollection<Cycle> Create(IReadOnlyCollection<StockHistory> stockHistory);
     }
 }
