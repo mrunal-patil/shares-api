@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shares.Domain.Ports;
+using Shares.Domain.Services;
 using Shares.Domain.Usecases;
 
 namespace Shares.Api
@@ -33,7 +34,15 @@ namespace Shares.Api
             });
 
             services.AddScoped<SaveStockHistory>();
-            
+            services.AddScoped<GetCycles>();
+            services.AddScoped<GetCyclesByPercentageAndDateInterval>();
+            services.AddScoped<StopLossIndicator>();
+            services.AddScoped<AverageCalculator>();
+            services.AddScoped<CurrentPerformanceCalculator>();
+
+            services.AddScoped<ICreateCycles, CyclesCreator>();
+            services.AddScoped<ICreateStopLossCycles, StopLossCyclesCreator>();
+
             services.AddHttpClient<IDownloadStockHistory, StockHistoryDownloader>(client =>
                 client.BaseAddress = new Uri(Configuration["YahooFinanceApi:Url"]));
         }

@@ -12,10 +12,12 @@ namespace Shares.WebService.Controllers
     public class StockHistoryController : ControllerBase
     {
         private readonly SaveStockHistory _saveStockHistory;
+        private readonly CurrentPerformanceCalculator _currentPerformanceCalculator;
 
-        public StockHistoryController(SaveStockHistory saveStockHistory)
+        public StockHistoryController(SaveStockHistory saveStockHistory, CurrentPerformanceCalculator currentPerformanceCalculator)
         {
             _saveStockHistory = saveStockHistory;
+            _currentPerformanceCalculator = currentPerformanceCalculator;
         }
 
         [HttpPost]
@@ -35,6 +37,15 @@ namespace Shares.WebService.Controllers
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, exception);
             }
+        }
+
+        [HttpGet]
+        [Route("current-performance")]
+        public async Task<IActionResult> GetCurrentPerformance()
+        {
+            var currentPerformance = await _currentPerformanceCalculator.Invoke();
+            
+            return Ok(currentPerformance);
         }
     }
 }
