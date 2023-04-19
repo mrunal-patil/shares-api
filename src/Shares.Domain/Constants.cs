@@ -48,7 +48,7 @@ namespace Shares.Domain
             "MA",
             "AIR",
             "OXY",
-            "TWTR",
+            "NXPI",
             "ORCL",
             "AD.AS",
             "BABA",
