@@ -20,6 +20,6 @@ namespace Shares.Domain.Entities
         public decimal TodaysValue { get; }
         public decimal PeakValue { get; }
         public decimal LowestValueInCurrentCycle { get; }
-        public decimal DropInCurrentCycleToday => Math.Round(1 - TodaysValue / PeakValue, 2);
+        // public decimal DropInCurrentCycleToday => Math.Round(1 - TodaysValue / PeakValue, 2);
     }
 }
