@@ -56,7 +56,11 @@ namespace Shares.Domain
             "SAP",
             "INTC",
             "SHEL",
-            "BP"
+            "BP",
+            "AMS.SW", // AMS (Pramods' company)
+            "4GLDD.XC", // Gold ETF Deutsche Xetra
+            "SPY5.L", // Gold ETF S&P LSE
+            "SGBS.AS" // Gold ETF Wisdom tree EAM
         };
 
         internal static List<PercentageInterval> PercentageIntervals = new List<PercentageInterval>
