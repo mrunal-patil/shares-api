@@ -43,7 +43,7 @@ namespace Shares.Domain
             "FTK.DE",
             "BRK-B",
             "VTSMX",
-            "CSSPX",
+            "CSSPX.MI",
             "VUSD.L",
             "MA",
             "AIR",
@@ -59,6 +59,11 @@ namespace Shares.Domain
             "BP",
             "AMS.SW", // AMS (Pramods' company)
             "SPY5.L", // Gold ETF S&P LSE
+            "4GLD.DE",
+            "SGBS.MI",
+            "^DJI",
+            "^BSESN",
+            "^NSEI"
         };
 
         internal static List<PercentageInterval> PercentageIntervals = new List<PercentageInterval>
