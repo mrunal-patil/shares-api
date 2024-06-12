@@ -34,8 +34,8 @@ namespace Shares.Domain.Usecases
                 var currentCycle = orderedStockHistory.Where(s => s.Date > peak.Date).ToList();
                 if (currentCycle != null && currentCycle.Any())
                 {
-                    var dropInPercentage = (peakValue - currentCycle.Min(s => s.ClosingPrice)) / peakValue;
-                    currentPerformances.Add(new CurrentPerformance(ticker, todaysValue, peakValue, dropInPercentage));
+                    var drop = currentCycle.Min(s => s.ClosingPrice);
+                    currentPerformances.Add(new CurrentPerformance(ticker, todaysValue, peakValue, drop));
                 }
                 else
                     currentPerformances.Add(new CurrentPerformance(ticker, todaysValue, peakValue, 0));
