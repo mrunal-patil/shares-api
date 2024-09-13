@@ -19,7 +19,7 @@ namespace Shares.Domain.Usecases
         public async Task<Matrix> Get(AveragedOver averagedOver)
         {
             var matrix = new Matrix();
-            foreach (var ticker in Constants.Tickers)
+            foreach (var ticker in Constants.StockAverageTickers)
             {
                 matrix.Tickers.Add(ticker);
                 var startDate = new DateTime(1996, 01, 01);
