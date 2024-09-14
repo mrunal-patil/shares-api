@@ -6,7 +6,7 @@ namespace Shares.Domain
 {
     internal static class Constants
     {
-        internal static List<string> Tickers = new List<string>
+        internal static List<string> CurrentPerformanceTickers = new List<string>
         {
             "EXXT.DE",
             "XLKS.MI",
@@ -62,6 +62,64 @@ namespace Shares.Domain
             "SAP",
             "SHEL",
             "BP"
+        };
+
+        internal static List<string> StockAverageTickers = new List<string>
+        {
+            "EXXT.DE",
+            "XLKS.MI",
+            "%5EIXIC",
+            "ASML",
+            "NVDA",
+            "AMD",
+            "PYPL",
+            "GOOGL",
+            "MSFT",
+            "LRCX",
+            "AAPL",
+            "TER",
+            "TSM",
+            "ADBE",
+            "ISRG",
+            "META",
+            "AVGO",
+            "QCOM",
+            "NKE",
+            "NFLX",
+            "CRM",
+            "KLAC",
+            "MU",
+            "AMZN",
+            "TSLA",
+            "ETSY",
+            "PLTR",
+            "STNE",
+            "DIS",
+            "ABNB",
+            "FTK.DE",
+            "BRK-B",
+            "VTSMX",
+            "CSSPX.MI",
+            "VUSD.L",
+            "MA",
+            "AIR",
+            "OXY",
+            "NXPI",
+            "ORCL",
+            "AD.AS",
+            "BABA",
+            "SRG",
+            "SAP",
+            "INTC",
+            "SHEL",
+            "BP",
+            "AMS.SW",
+            "SPY5.L",
+            "4GLD.DE",
+            "SGBS.MI",
+            "^DJI",
+            "^BSESN",
+            "^NSEI"
         };
 
         internal static List<PercentageInterval> PercentageIntervals = new List<PercentageInterval>

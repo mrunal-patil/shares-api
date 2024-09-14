@@ -26,7 +26,7 @@ namespace Shares.Domain.Usecases
         public async Task<Matrix> Invoke()
         {
             var matrix = new Matrix();
-            foreach (var ticker in Constants.Tickers)
+            foreach (var ticker in Constants.CurrentPerformanceTickers)
             {
                 matrix.Tickers.Add(ticker);
                 foreach (var yearInterval in Constants.YearIntervals)

@@ -22,7 +22,7 @@ namespace Shares.Domain.Usecases
             var endDate = DateTime.Today;
             var currentPerformances = new List<CurrentPerformance>();
 
-            foreach (var ticker in Constants.Tickers)
+            foreach (var ticker in Constants.CurrentPerformanceTickers)
             {
                 var stockHistory = await _stockHistoryDownloader.GetByDateAndTicker(startDate, endDate, ticker);
                 var orderedStockHistory = stockHistory.OrderByDescending(s => s.Date).ToList();
