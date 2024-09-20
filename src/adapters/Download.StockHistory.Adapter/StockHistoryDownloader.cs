@@ -41,8 +41,8 @@ namespace Download.StockHistory.Adapter
             var period1 = new DateTimeOffset(startDate.ToLocalTime()).ToUnixTimeSeconds();
             var period2 = new DateTimeOffset(endDate.ToLocalTime()).ToUnixTimeSeconds();
 
-            return "download/" + ticker.ToUpper() +
-                   $"?period1={period1}&period2={period2}&interval=1d&events=history";
+            return "chart/" + ticker.ToUpper() +
+                   $"?period1={period1}&period2={period2}&interval=1d";
         }
 
         private IReadOnlyCollection<StockHistoryEntity> ConvertStockHistory (string content, string ticker)
