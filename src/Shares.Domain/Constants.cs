@@ -10,6 +10,7 @@ namespace Shares.Domain
         {
             "EXXT.DE",
             "XLKS.MI",
+            "QQQ3.MI",
             "BRK-B",
             "CSSPX.MI",
             "VUSD.L",
@@ -21,6 +22,7 @@ namespace Shares.Domain
             "4GLD.DE",
             "SGBS.MI",
             "SPY5.L",
+            "XAD6.DE",
             "ASML",
             "NVDA",
             "GOOGL",
@@ -61,7 +63,9 @@ namespace Shares.Domain
             "SRG",
             "SAP",
             "SHEL",
-            "BP"
+            "BP",
+            "IBM",
+            "ARM"
         };
 
         internal static List<string> StockAverageTickers = new List<string>
@@ -119,7 +123,11 @@ namespace Shares.Domain
             "SGBS.MI",
             "^DJI",
             "^BSESN",
-            "^NSEI"
+            "^NSEI",
+            "IBM",
+            "ARM",
+            "QQQ3.MI",
+            "XAD6.DE"
         };
 
         internal static List<PercentageInterval> PercentageIntervals = new List<PercentageInterval>
