@@ -65,7 +65,10 @@ namespace Shares.Domain
             "SHEL",
             "BP",
             "IBM",
-            "ARM"
+            "ARM",
+            "UNH",
+            "LLY",
+            "NVO"
         };
 
         internal static List<string> StockAverageTickers = new List<string>
@@ -127,7 +130,10 @@ namespace Shares.Domain
             "IBM",
             "ARM",
             "QQQ3.MI",
-            "XAD6.DE"
+            "XAD6.DE",
+            "UNH",
+            "LLY",
+            "NVO"
         };
 
         internal static List<PercentageInterval> PercentageIntervals = new List<PercentageInterval>
