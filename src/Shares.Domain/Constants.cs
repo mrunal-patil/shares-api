@@ -8,19 +8,21 @@ namespace Shares.Domain
     {
         internal static List<string> CurrentPerformanceTickers = new List<string>
         {
-            "EXXT.DE",
-            "XLKS.MI",
-            "BRK-B",
+            "VTSMX",
+            "^DJI",
+            "%5EIXIC",
             "CSSPX.MI",
             "VUSD.L",
-            "%5EIXIC",
-            "^DJI",
-            "VTSMX",
             "^BSESN",
             "^NSEI",
+            "SPY5.L",
+            "EXXT.DE",
+            "XLKS.MI",
+            "QQQ3.MI",
+            "BRK-B",
             "4GLD.DE",
             "SGBS.MI",
-            "SPY5.L",
+            "XAD6.DE",
             "ASML",
             "NVDA",
             "GOOGL",
@@ -34,7 +36,6 @@ namespace Shares.Domain
             "QCOM",
             "LRCX",
             "NXPI",
-            "KLAC",
             "TER",
             "ADBE",
             "META",
@@ -44,14 +45,23 @@ namespace Shares.Domain
             "AMZN",
             "NKE",
             "PYPL",
+            "IBM",
+            "ARM",
+            "NVO",
+            "LLY",
+            "KOG.OL",
+            "RHM.DE",
+            "SDV1.F",
+            "HO.PA",
             "TSLA",
             "ETSY",
-            "AMS.SW",
             "PLTR",
             "DIS",
             "ABNB",
+            "AMS.SW",
             "STNE",
             "FTK.DE",
+            "KLAC",
             "MA",
             "AIR",
             "OXY",
@@ -61,7 +71,8 @@ namespace Shares.Domain
             "SRG",
             "SAP",
             "SHEL",
-            "BP"
+            "BP",
+            "UNH"
         };
 
         internal static List<string> StockAverageTickers = new List<string>
@@ -119,7 +130,18 @@ namespace Shares.Domain
             "SGBS.MI",
             "^DJI",
             "^BSESN",
-            "^NSEI"
+            "^NSEI",
+            "IBM",
+            "ARM",
+            "QQQ3.MI",
+            "XAD6.DE",
+            "NVO",
+            "LLY",
+            "KOG.OL",
+            "RHM.DE",
+            "SDV1.F",
+            "HO.PA",
+            "UNH"
         };
 
         internal static List<PercentageInterval> PercentageIntervals = new List<PercentageInterval>

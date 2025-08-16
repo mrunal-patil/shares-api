@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Download.StockHistory.Adapter.Dtos;
+using Newtonsoft.Json;
 using Shares.Domain.Ports;
 using StockHistoryEntity = Shares.Domain.Entities.StockHistory;
 
@@ -41,54 +43,34 @@ namespace Download.StockHistory.Adapter
             var period1 = new DateTimeOffset(startDate.ToLocalTime()).ToUnixTimeSeconds();
             var period2 = new DateTimeOffset(endDate.ToLocalTime()).ToUnixTimeSeconds();
 
-            return "download/" + ticker.ToUpper() +
-                   $"?period1={period1}&period2={period2}&interval=1d&events=history";
+            return "chart/" + ticker.ToUpper() +
+                   $"?period1={period1}&period2={period2}&interval=1d";
         }
 
         private IReadOnlyCollection<StockHistoryEntity> ConvertStockHistory (string content, string ticker)
         {
-            var stockHistoryRecords = content.Split("\n".ToCharArray());
-            var stockHistory = new List<StockHistoryEntity>();
+            var stockHistoryEntities = new List<StockHistoryEntity>();
+            var chartResponse = JsonConvert.DeserializeObject<ChartResponse>(content);
 
-            foreach (var stockHistoryRecord in stockHistoryRecords.Where(s => s != stockHistoryRecords.First()))
+            var timeStamps = chartResponse.Chart.Result[0].Timestamps.Select(t => DateTimeOffset.FromUnixTimeSeconds(t)).ToList();
+            var closingPrices = chartResponse.Chart.Result[0].Indicator.Quotes[0].DailyClosingPrices;
+            var lowestDailyPrices = chartResponse.Chart.Result[0].Indicator.Quotes[0].DailyLowestPrices;
+
+            for (int i = 0; i < timeStamps.Count; i++)
             {
-                var stockHistoryAsString = stockHistoryRecord.Split(",".ToCharArray());
-
-                if (stockHistoryAsString.Contains("null") || stockHistoryAsString.Any(s => s == null))
+                if (closingPrices[i] == null || lowestDailyPrices[i] == null)
                     continue;
 
-                var numberStyle = System.Globalization.NumberStyles.Number;
-                var culture = System.Globalization.CultureInfo.InvariantCulture;
-
-                if (!DateTime.TryParse(stockHistoryAsString[0], out var date))
-                    throw new ArgumentException($"Cannot convert {stockHistoryAsString[0]} into date.");
-
-                //if (!decimal.TryParse(stockHistoryAsString[1], numberStyle, culture, out var openingPrice))
-                //    throw new ArgumentException($"Cannot convert opening price {stockHistoryAsString[1]} into decimal.");
-
-                //if (!decimal.TryParse(stockHistoryAsString[2], numberStyle, culture, out var highestPrice))
-                //    throw new ArgumentException($"Cannot convert highest price {stockHistoryAsString[2]} into decimal.");
-
-                if (!decimal.TryParse(stockHistoryAsString[3], numberStyle, culture, out var lowestPrice))
-                    throw new ArgumentException($"Cannot convert lowest price {stockHistoryAsString[3]} into decimal.");
-
-                if (!decimal.TryParse(stockHistoryAsString[4], numberStyle, culture, out var closingPrice))
-                    throw new ArgumentException($"Cannot convert closing price {stockHistoryAsString[4]} into decimal.");
-
-                //if (!int.TryParse(stockHistoryAsString[6], numberStyle, culture, out var volume))
-                //    throw new ArgumentException($"Cannot convert volume {stockHistoryAsString[6]} into integer.");
-
-                var stockHistoryItem = new StockHistoryEntity(
-                    ticker,
-                    date,
-                    closingPrice,
-                    lowestPrice
+                stockHistoryEntities.Add(
+                    new StockHistoryEntity(
+                        ticker, timeStamps[i].Date,
+                        closingPrices[i].Value,
+                        lowestDailyPrices[i].Value
+                    )
                 );
-
-                stockHistory.Add(stockHistoryItem);
             }
 
-            return stockHistory;
+            return stockHistoryEntities;
         }
     }
 }
