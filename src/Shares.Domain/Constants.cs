@@ -6,8 +6,8 @@ namespace Shares.Domain
 {
     internal static class Constants
     {
-        internal static List<string> CurrentPerformanceTickers = new List<string>
-        {
+        internal static readonly List<string> CurrentPerformanceTickers =
+        [
             "VTSMX",
             "^DJI",
             "%5EIXIC",
@@ -47,6 +47,7 @@ namespace Shares.Domain
             "PYPL",
             "IBM",
             "ARM",
+            "SNPS",
             "NVO",
             "LLY",
             "KOG.OL",
@@ -73,10 +74,10 @@ namespace Shares.Domain
             "SHEL",
             "BP",
             "UNH"
-        };
+        ];
 
-        internal static List<string> StockAverageTickers = new List<string>
-        {
+        internal static readonly List<string> StockAverageTickers =
+        [
             "EXXT.DE",
             "XLKS.MI",
             "%5EIXIC",
@@ -141,37 +142,38 @@ namespace Shares.Domain
             "RHM.DE",
             "SDV1.F",
             "HO.PA",
-            "UNH"
-        };
+            "UNH",
+            "SNPS"
+        ];
 
-        internal static List<PercentageInterval> PercentageIntervals = new List<PercentageInterval>
-        {
-            new PercentageInterval(3, 5),
-            new PercentageInterval(5, 7),
-            new PercentageInterval(7, 10),
-            new PercentageInterval(10, 15),
-            new PercentageInterval(15, 20),
-            new PercentageInterval(20, 30),
-            new PercentageInterval(30, 40),
-            new PercentageInterval(40, 100)
-        };
+        internal static readonly List<PercentageInterval> PercentageIntervals =
+        [
+            new(3, 5),
+            new(5, 7),
+            new(7, 10),
+            new(10, 15),
+            new(15, 20),
+            new(20, 30),
+            new(30, 40),
+            new(40, 100)
+        ];
 
-        internal static List<YearInterval> YearIntervals = new List<YearInterval>
-        {
-            new YearInterval(new DateTime(2021, 01, 01), DateTime.Today),
-            new YearInterval(new DateTime(2016, 01, 01), new DateTime(2020, 12, 31)),
-            new YearInterval(new DateTime(2011, 01, 01), new DateTime(2015, 12, 31))
-        };
+        internal static readonly List<YearInterval> YearIntervals =
+        [
+            new(new DateTime(2021, 01, 01), DateTime.Today),
+            new(new DateTime(2016, 01, 01), new DateTime(2020, 12, 31)),
+            new(new DateTime(2011, 01, 01), new DateTime(2015, 12, 31))
+        ];
 
-        internal static List<PercentageIntervalForStopLoss> PercentageIntervalsForStopLoss = new List<PercentageIntervalForStopLoss>
-        {
-            new PercentageIntervalForStopLoss(7, 4),
-            new PercentageIntervalForStopLoss(10, 6),
-            new PercentageIntervalForStopLoss(15, 10),
-            new PercentageIntervalForStopLoss(20, 14),
-            new PercentageIntervalForStopLoss(25, 18),
-            new PercentageIntervalForStopLoss(30, 22),
-            new PercentageIntervalForStopLoss(40, 30)
-        };
+        internal static readonly List<PercentageIntervalForStopLoss> PercentageIntervalsForStopLoss =
+        [
+            new(7, 4),
+            new(10, 6),
+            new(15, 10),
+            new(20, 14),
+            new(25, 18),
+            new(30, 22),
+            new(40, 30)
+        ];
     }
 }
