@@ -26,13 +26,21 @@ namespace Shares.Domain.Usecases
             var matrix = new Matrix();
             foreach (var ticker in Constants.CurrentPerformanceTickers)
             {
-                List<Cycle> cycles = new List<Cycle>();
+                var cycles = new List<Cycle>();
                 foreach (var yearInterval in Constants.YearIntervals)
                 {
-                    var stockHistory = await _stockHistoryDownloader.GetByDateAndTicker(
-                        yearInterval.LowerLimit,
-                        yearInterval.UpperLimit,
-                        ticker);
+                    var stockHistory = new List<StockHistory>();
+                    try
+                    {
+                        stockHistory = (await _stockHistoryDownloader.GetByDateAndTicker(
+                            yearInterval.LowerLimit,
+                            yearInterval.UpperLimit,
+                            ticker)).ToList();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Eating the exception as I don't have data for the time interval");
+                    }
 
                     foreach (var percentageInterval in Constants.PercentageIntervals)
                     {

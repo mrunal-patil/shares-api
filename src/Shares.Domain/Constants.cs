@@ -160,7 +160,8 @@ namespace Shares.Domain
 
         internal static readonly List<YearInterval> YearIntervals =
         [
-            new(new DateTime(2021, 01, 01), DateTime.Today),
+            //new(new DateTime(2026, 01, 01), DateTime.Today),
+            new(new DateTime(2021, 01, 01), new DateTime(2025, 12, 26)),
             new(new DateTime(2016, 01, 01), new DateTime(2020, 12, 31)),
             new(new DateTime(2011, 01, 01), new DateTime(2015, 12, 31))
         ];

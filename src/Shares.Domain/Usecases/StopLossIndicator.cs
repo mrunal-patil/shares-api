@@ -31,10 +31,18 @@ namespace Shares.Domain.Usecases
                 matrix.Tickers.Add(ticker);
                 foreach (var yearInterval in Constants.YearIntervals)
                 {
-                    var stockHistory = await _stockHistoryDownloader.GetByDateAndTicker(
-                        yearInterval.LowerLimit,
-                        yearInterval.UpperLimit,
-                        ticker);
+                    var stockHistory = new List<StockHistory>();
+                    try
+                    {
+                        stockHistory = (await _stockHistoryDownloader.GetByDateAndTicker(
+                            yearInterval.LowerLimit,
+                            yearInterval.UpperLimit,
+                            ticker)).ToList();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Doesn't have data for the time interval");
+                    }
 
                     foreach (var percentageIntervalForStopLoss in Constants.PercentageIntervalsForStopLoss)
                     {

@@ -41,7 +41,8 @@ namespace Shares.WebService.Controllers
             }
         }
 
-        [HttpGet("/all")]
+        // Calculate the number of single-drops in stock price over different percentage ranges and date intervals
+        [HttpGet("/drops")]
         public async Task<IActionResult> GetCyclesMatrix()
         {
             var matrix = await _getCyclesByPercentageAndDateInterval.Create();
@@ -49,6 +50,7 @@ namespace Shares.WebService.Controllers
             return Ok(matrix);
         }
 
+        // Calculate the number of cyclic-drops in stock price over different percentage ranges and date intervals
         [HttpGet("/stoploss")]
         public async Task<IActionResult> GetCyclesForIndicatingStopLossMatrix()
         {
