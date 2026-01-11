@@ -7,15 +7,8 @@ using System.Threading.Tasks;
 
 namespace Shares.Domain.Usecases
 {
-    public class AverageCalculator
+    public class AverageCalculator(IDownloadStockHistory downloadStockHistory)
     {
-        private readonly IDownloadStockHistory _stockHistoryDownloader;
-
-        public AverageCalculator(IDownloadStockHistory downloadStockHistory)
-        {
-            _stockHistoryDownloader = downloadStockHistory;
-        }
-
         public async Task<Matrix> Get(AveragedOver averagedOver)
         {
             var matrix = new Matrix();
@@ -25,20 +18,21 @@ namespace Shares.Domain.Usecases
                 var startDate = new DateTime(1996, 01, 01);
                 var endDate = CalculateEndDate(startDate, averagedOver);
 
-                var stockHistory = await _stockHistoryDownloader.GetByDateAndTicker(startDate, DateTime.Today, ticker);
+                var stockHistory = await downloadStockHistory.GetByDateAndTicker(startDate, DateTime.Today, ticker);
 
-                var averages = new List<decimal>();
+                var averages = new List<decimal?>();
                 while (startDate <= DateTime.Today)
                 {
                     var closingPrices = stockHistory.Where(s => s.Date >= startDate.Date && s.Date < endDate.Date)
                         .Select(s => s.ClosingPrice)
                         .ToList();
 
-                    var average = 0.0m;
-                    if (closingPrices.Any())
-                        average = closingPrices.Average();
-
-                    averages.Add(Math.Round(average, 2));
+                    if (closingPrices.Count != 0)
+                    {
+                        var average = closingPrices.Average();
+                        averages.Add(Math.Round(average, 2));
+                    }
+                    else averages.Add(null);
 
                     startDate = startDate.AddMonths(3);
                     endDate = endDate.AddMonths(3);
@@ -50,19 +44,15 @@ namespace Shares.Domain.Usecases
             return matrix;
         }
 
-        public DateTime CalculateEndDate(DateTime startDate, AveragedOver averagedOver)
+        private DateTime CalculateEndDate(DateTime startDate, AveragedOver averagedOver)
         {
-            switch (averagedOver)
+            return averagedOver switch
             {
-                case AveragedOver.OneQuarter:
-                    return startDate.AddMonths(3);
-                case AveragedOver.TwoQuarters:
-                    return startDate.AddMonths(6);
-                case AveragedOver.Year:
-                    return startDate.AddYears(1);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(averagedOver), averagedOver, null);
-            }
+                AveragedOver.OneQuarter => startDate.AddMonths(3),
+                AveragedOver.TwoQuarters => startDate.AddMonths(6),
+                AveragedOver.Year => startDate.AddYears(1),
+                _ => throw new ArgumentOutOfRangeException(nameof(averagedOver), averagedOver, null)
+            };
         }
     }
 }
