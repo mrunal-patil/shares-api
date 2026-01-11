@@ -4,7 +4,7 @@ using Shares.Domain.Entities;
 
 namespace Shares.Domain
 {
-    internal static class Constants
+    public static class Constants
     {
         internal static readonly List<string> CurrentPerformanceTickers =
         [
@@ -144,6 +144,53 @@ namespace Shares.Domain
             "HO.PA",
             "UNH",
             "SNPS"
+        ];
+        
+        public static readonly List<string> FinancialMetricsTickers =
+        [
+            "BRK-B",
+            "ASML",
+            "NVDA",
+            "GOOGL",
+            "MSFT",
+            "AAPL",
+            "AVGO",
+            "INTC",
+            "AMD",
+            "TSM",
+            "MU",
+            "QCOM",
+            "LRCX",
+            "NXPI",
+            "TER",
+            "ADBE",
+            "META",
+            "NFLX",
+            "ISRG",
+            "CRM",
+            "AMZN",
+            "NKE",
+            "PYPL",
+            "IBM",
+            "ARM",
+            "SNPS",
+            "NVO",
+            "LLY",
+            "TSLA",
+            "ETSY",
+            "PLTR",
+            "DIS",
+            "ABNB",
+            "KLAC",
+            "MA",
+            "AIR",
+            "OXY",
+            "ORCL",
+            "BABA",
+            "SAP",
+            "SHEL",
+            "BP",
+            "UNH"
         ];
 
         internal static readonly List<PercentageInterval> PercentageIntervals =

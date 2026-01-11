@@ -44,7 +44,13 @@ namespace Shares.Api
             services.AddScoped<ICreateStopLossCycles, StopLossCyclesCreator>();
 
             services.AddHttpClient<IDownloadStockHistory, StockHistoryDownloader>(client =>
-                client.BaseAddress = new Uri(Configuration["YahooFinanceApi:Url"]));
+                client.BaseAddress = new Uri(Configuration["YahooFinanceApi:Url"] ?? string.Empty));
+
+            services.AddHttpClient<IDownloadFinancialMetrics, FinancialMetricsDownloader>(client =>
+            {
+                client.BaseAddress = new Uri(Configuration["FinnhubApi:Url"] ?? string.Empty);
+                client.DefaultRequestHeaders.Add("X-Finnhub-Token", Configuration["FinnhubApi:ApiKey"]);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
