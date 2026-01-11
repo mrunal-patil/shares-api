@@ -8,19 +8,12 @@ namespace Shares.WebService.Controllers
 {
     [ApiController]
     [Route("api/stock-average")]
-    public class StockAverageController : ControllerBase
+    public class StockAverageController(AverageCalculator averageCalculator) : ControllerBase
     {
-        private readonly AverageCalculator _averageCalculator;
-
-        public StockAverageController(AverageCalculator averageCalculator)
-        {
-            _averageCalculator = averageCalculator;
-        }
-
         [HttpGet("/one-quarter")]
         public async Task<IActionResult> GetAverageOverOneQuarter()
         {
-            var matrix = await _averageCalculator.Get(AveragedOver.OneQuarter);
+            var matrix = await averageCalculator.Get(AveragedOver.OneQuarter);
 
             return Ok(matrix);
         }
@@ -28,7 +21,7 @@ namespace Shares.WebService.Controllers
         [HttpGet("/two-quarters")]
         public async Task<IActionResult> GetAverageOverTwoQuarters()
         {
-            var matrix = await _averageCalculator.Get(AveragedOver.TwoQuarters);
+            var matrix = await averageCalculator.Get(AveragedOver.TwoQuarters);
 
             return Ok(matrix);
         }
@@ -36,7 +29,7 @@ namespace Shares.WebService.Controllers
         [HttpGet("/yearly")]
         public async Task<IActionResult> GetAverageOverYear()
         {
-            var matrix = await _averageCalculator.Get(AveragedOver.Year);
+            var matrix = await averageCalculator.Get(AveragedOver.Year);
 
             return Ok(matrix);
         }

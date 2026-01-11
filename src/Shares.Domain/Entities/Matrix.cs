@@ -29,7 +29,7 @@ namespace Shares.Domain.Entities
                 var rowsToAdd = valuesOfTheColumn.Count - Rows.Count;
                 while (rowsToAdd > 0)
                 {
-                    AddRow(new List<decimal>());
+                    AddRow([]);
                     rowsToAdd--;
                 }
             }
