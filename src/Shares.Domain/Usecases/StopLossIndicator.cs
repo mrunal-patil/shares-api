@@ -60,7 +60,7 @@ namespace Shares.Domain.Usecases
                         }
                     }
                 }
-
+                
                 var valuesToCreateRow = GetValuesForRow(_subCycles);
                 matrix.AddRow(valuesToCreateRow);
 
@@ -141,7 +141,7 @@ namespace Shares.Domain.Usecases
         private decimal CalculateDropInPercentage(decimal startingPoint, decimal lowestPoint) =>
             startingPoint - startingPoint * lowestPoint / 100;
 
-        private List<decimal> GetValuesForRow(List<Cycle> cycles)
+        private List<decimal?> GetValuesForRow(List<Cycle> cycles)
         {
             return cycles
                 .GroupBy(c => c.PercentageInterval.LowerLimit)
@@ -149,8 +149,7 @@ namespace Shares.Domain.Usecases
                 .SelectMany(g => g
                     .GroupBy(x => x.YearInterval.UpperLimit)
                     .OrderByDescending(x => x.Key)
-                    .Select(x => x.Count(c => c.StockHistory != null))
-                    .Select(Convert.ToDecimal)
+                    .Select(x => (decimal?)x.Count(c => c.StockHistory != null))
                 ).ToList();
         }
     }

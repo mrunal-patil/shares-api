@@ -55,7 +55,7 @@ namespace Shares.Domain.Usecases
             return matrix;
         }
 
-        private List<decimal> GetValuesForRow(List<Cycle> cycles)
+        private List<decimal?> GetValuesForRow(List<Cycle> cycles)
         {
             return cycles
                 .GroupBy(c => c.PercentageInterval.LowerLimit)
@@ -63,8 +63,7 @@ namespace Shares.Domain.Usecases
                 .SelectMany(g => g
                     .GroupBy(x => x.YearInterval.UpperLimit)
                     .OrderByDescending(x => x.Key)
-                    .Select(x => x.Count(c => c.StockHistory != null))
-                    .Select(Convert.ToDecimal)
+                    .Select(x => (decimal?)x.Count(c => c.StockHistory != null))
                 ).ToList();
         }
     }
