@@ -15,8 +15,11 @@ public class FinancialMetricsDownloader(HttpClient httpClient) : IDownloadFinanc
     public async Task<IReadOnlyCollection<FinancialMetrics>> GetAll()
     {
         var financialMetricsCollection = new List<FinancialMetrics>();
-        foreach (var ticker in Constants.FinancialMetricsTickers)
+        foreach (var ticker in Constants.CurrentPerformanceTickers)
         {
+            if (Constants.IgnoredFinancialMetricsTickers.Contains(ticker))
+                continue;
+            
             Console.WriteLine($"Ticker: {ticker}");
             var response = await httpClient.GetAsync($"?symbol={ticker}&metric=all");
             var financialMetricsDto = JsonConvert.DeserializeObject<FinancialMetricsDto>(await response.Content.ReadAsStringAsync());

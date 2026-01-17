@@ -6,7 +6,7 @@ namespace Shares.Domain
 {
     public static class Constants
     {
-        internal static readonly List<string> CurrentPerformanceTickers =
+        public static readonly List<string> CurrentPerformanceTickers =
         [
             "VTSMX",
             "^DJI",
@@ -146,51 +146,31 @@ namespace Shares.Domain
             "SNPS"
         ];
         
-        public static readonly List<string> FinancialMetricsTickers =
+        public static readonly List<string> IgnoredFinancialMetricsTickers =
         [
-            "BRK-B",
-            "ASML",
-            "NVDA",
-            "GOOGL",
-            "MSFT",
-            "AAPL",
-            "AVGO",
-            "INTC",
-            "AMD",
-            "TSM",
-            "MU",
-            "QCOM",
-            "LRCX",
-            "NXPI",
-            "TER",
-            "ADBE",
-            "META",
-            "NFLX",
-            "ISRG",
-            "CRM",
-            "AMZN",
-            "NKE",
-            "PYPL",
-            "IBM",
-            "ARM",
-            "SNPS",
-            "NVO",
-            "LLY",
-            "TSLA",
-            "ETSY",
-            "PLTR",
-            "DIS",
-            "ABNB",
-            "KLAC",
-            "MA",
-            "AIR",
-            "OXY",
-            "ORCL",
-            "BABA",
-            "SAP",
-            "SHEL",
-            "BP",
-            "UNH"
+            "VTSMX",
+            "^DJI",
+            "%5EIXIC",
+            "CSSPX.MI",
+            "VUSD.L",
+            "^BSESN",
+            "^NSEI",
+            "SPY5.L",
+            "EXXT.DE",
+            "XLKS.MI",
+            "QQQ3.MI",
+            "4GLD.DE",
+            "SGBS.MI",
+            "XAD6.DE",
+            "KOG.OL",
+            "RHM.DE",
+            "SDV1.F",
+            "HO.PA",
+            "AMS.SW",
+            "STNE",
+            "FTK.DE",
+            "AD.AS",
+            "SRG",
         ];
 
         internal static readonly List<PercentageInterval> PercentageIntervals =
