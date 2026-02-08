@@ -10,8 +10,11 @@ public class FinancialMetricsDto
 public class Metric
 {
     [JsonProperty("epsTTM")]
-    public decimal EarningPerShareTTM { get; set; }
+    public decimal? EarningPerShareTTM { get; set; }
     
     [JsonProperty("peTTM")]
-    public decimal PriceToEarningsTTM { get; set; }
+    public decimal? PriceToEarningsTTM { get; set; }
+    
+    [JsonProperty("bookValuePerShareAnnual")]
+    public decimal BookValuePerShareAnnual { get; set; }
 }

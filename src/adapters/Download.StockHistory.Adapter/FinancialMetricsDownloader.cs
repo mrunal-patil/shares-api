@@ -18,7 +18,10 @@ public class FinancialMetricsDownloader(HttpClient httpClient) : IDownloadFinanc
         foreach (var ticker in Constants.CurrentPerformanceTickers)
         {
             if (Constants.IgnoredFinancialMetricsTickers.Contains(ticker))
+            {
+                financialMetricsCollection.Add(new FinancialMetrics { Ticker = ticker });
                 continue;
+            }
             
             Console.WriteLine($"Ticker: {ticker}");
             var response = await httpClient.GetAsync($"?symbol={ticker}&metric=all");
@@ -26,8 +29,8 @@ public class FinancialMetricsDownloader(HttpClient httpClient) : IDownloadFinanc
             financialMetricsCollection.Add(new FinancialMetrics
             {
                 Ticker = ticker,
-                EarningPerShareTTM = Math.Round(financialMetricsDto.Metric.EarningPerShareTTM, 2),
-                PriceToEarningsTTM = Math.Round(financialMetricsDto.Metric.PriceToEarningsTTM, 2)
+                EarningPerShareTTM = Math.Round(financialMetricsDto.Metric?.EarningPerShareTTM ?? 0, 2),
+                BookValuePerShareAnnual = Math.Round(financialMetricsDto.Metric?.BookValuePerShareAnnual ?? 0, 2)
             });
             
             await Task.Delay(500);
