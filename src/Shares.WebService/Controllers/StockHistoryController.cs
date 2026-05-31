@@ -1,51 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Shares.Domain.Usecases;
-using Shares.WebService.Dtos.Request;
-using System;
-using System.Net;
 using System.Threading.Tasks;
+using Shares.Domain.Entities;
 
 namespace Shares.WebService.Controllers
 {
     [ApiController]
-    [Route("api/stock-history")]
-    public class StockHistoryController : ControllerBase
+    public class StockHistoryController(AverageCalculator averageCalculator) : ControllerBase
     {
-        private readonly SaveStockHistory _saveStockHistory;
-        private readonly CurrentPerformanceCalculator _currentPerformanceCalculator;
-
-        public StockHistoryController(SaveStockHistory saveStockHistory, CurrentPerformanceCalculator currentPerformanceCalculator)
+        [HttpGet("Averaged-Over-One-Quarter")]
+        public async Task<IActionResult> GetAverageOverOneQuarter()
         {
-            _saveStockHistory = saveStockHistory;
-            _currentPerformanceCalculator = currentPerformanceCalculator;
+            var matrix = await averageCalculator.Get(AveragedOver.OneQuarter);
+
+            return Ok(matrix);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Download(StockHistoryDownload stockHistoryDownload)
+        [HttpGet("Averaged-Over-Two-Quarters")]
+        public async Task<IActionResult> GetAverageOverTwoQuarters()
         {
-            try
-            {
-                if (stockHistoryDownload.StartDate.Date > DateTime.Today || stockHistoryDownload.EndDate.Date > DateTime.Today)
-                    return BadRequest("Start date or end date can not be in the future.");
+            var matrix = await averageCalculator.Get(AveragedOver.TwoQuarters);
 
-                var stockHistory = await _saveStockHistory.Invoke(stockHistoryDownload.StartDate, stockHistoryDownload.EndDate,
-                    stockHistoryDownload.Ticker);
-
-                return Ok(stockHistory);
-            }
-            catch (Exception exception)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, exception);
-            }
+            return Ok(matrix);
         }
 
-        [HttpGet]
-        [Route("current-performance")]
-        public async Task<IActionResult> GetCurrentPerformance()
+        [HttpGet("Averaged-Over-Four-Quarters")]
+        public async Task<IActionResult> GetAverageOverYear()
         {
-            var currentPerformance = await _currentPerformanceCalculator.Invoke();
-            
-            return Ok(currentPerformance);
+            var matrix = await averageCalculator.Get(AveragedOver.Year);
+
+            return Ok(matrix);
         }
     }
 }

@@ -5,7 +5,7 @@ using Shares.Domain.Ports;
 namespace Shares.WebService.Controllers;
 
 [ApiController]
-[Route("api/financial-metrics")]
+[Route("EPS-BVPS")]
 public class FinancialMetricsController: ControllerBase
 {
     private readonly IDownloadFinancialMetrics _financialMetricsDownloader;
