@@ -6,62 +6,58 @@ namespace Shares.Domain
 {
     public static class Constants
     {
+        /// <summary>
+        /// List of tickers used for daily performance tracking and fundamental analysis 
+        /// including Earnings Per Share (EPS) and Book Value Per Share (BVPS) ratios.
+        /// </summary>
         public static readonly List<string> CurrentPerformanceTickers =
         [
-            "VTSMX",
-            "^DJI",
-            "%5EIXIC",
-            "CSSPX.MI",
-            "VUSD.L",
-            "^BSESN",
-            "^NSEI",
-            "SPY5.L",
-            "EXXT.DE",
-            "XLKS.MI",
-            "QQQ3.MI",
-            "BRK-B",
             "4GLD.DE",
             "SGBS.MI",
             "XAD6.DE",
-            "ASML",
+            "EXXT.DE",
+            "XLKS.MI",
+            "QQQ3.MI",
+            "SOXL.MI",
+            "BRK-B",
             "NVDA",
-            "GOOGL",
-            "MSFT",
-            "AAPL",
             "AVGO",
+            "ASML",
+            "LRCX",
+            "NXPI",
             "INTC",
             "AMD",
             "TSM",
             "MU",
             "QCOM",
-            "LRCX",
-            "NXPI",
-            "TER",
-            "ADBE",
+            "HY9H.F",
+            "AAPL",
+            "GOOGL",
+            "MSFT",
+            "AMZN",
             "META",
+            "CRM",
+            "ADBE",
             "NFLX",
             "ISRG",
-            "CRM",
-            "AMZN",
-            "NKE",
-            "PYPL",
-            "IBM",
+            "TER",
+            "TSLA",
+            "PLTR",
             "ARM",
             "SNPS",
-            "NVO",
+            "IBM",
             "LLY",
+            "NVO",
             "KOG.OL",
             "RHM.DE",
             "SDV1.F",
             "HO.PA",
-            "TSLA",
+            "FTK.DE",
+            "NKE",
             "ETSY",
-            "PLTR",
+            "STNE",
             "DIS",
             "ABNB",
-            "AMS.SW",
-            "STNE",
-            "FTK.DE",
             "KLAC",
             "MA",
             "AIR",
@@ -69,13 +65,24 @@ namespace Shares.Domain
             "ORCL",
             "AD.AS",
             "BABA",
-            "SRG",
             "SAP",
             "SHEL",
             "BP",
-            "UNH"
+            "UNH",
+            "PYPL",
+            "VTSMX",
+            "^DJI",
+            "%5EIXIC",
+            "CSSPX.MI",
+            "VUSD.L",
+            "^BSESN",
+            "^NSEI",
+            "SPY5.L"
         ];
 
+        /// <summary>
+        /// List of tickers processed for quarterly stock average calculations.
+        /// </summary>
         internal static readonly List<string> StockAverageTickers =
         [
             "EXXT.DE",
@@ -143,11 +150,33 @@ namespace Shares.Domain
             "SDV1.F",
             "HO.PA",
             "UNH",
-            "SNPS"
+            "SNPS",
+            "000660.KS",
+            "SOXL.MI"
+
         ];
         
+        /// <summary>
+        /// Tickers that should be excluded from financial metric calculations (EPS/BVPS).
+        /// This typically includes indices, ETFs, or commodities where these ratios are not applicable.
+        /// </summary>
         public static readonly List<string> IgnoredFinancialMetricsTickers =
         [
+            "4GLD.DE",
+            "SGBS.MI",
+            "XAD6.DE",
+            "EXXT.DE",
+            "XLKS.MI",
+            "QQQ3.MI",
+            "SOXL.MI",
+            "HY9H.F",
+            "KOG.OL",
+            "RHM.DE",
+            "SDV1.F",
+            "HO.PA",
+            "FTK.DE",
+            "STNE",
+            "AD.AS",
             "VTSMX",
             "^DJI",
             "%5EIXIC",
@@ -155,24 +184,13 @@ namespace Shares.Domain
             "VUSD.L",
             "^BSESN",
             "^NSEI",
-            "SPY5.L",
-            "EXXT.DE",
-            "XLKS.MI",
-            "QQQ3.MI",
-            "4GLD.DE",
-            "SGBS.MI",
-            "XAD6.DE",
-            "KOG.OL",
-            "RHM.DE",
-            "SDV1.F",
-            "HO.PA",
-            "AMS.SW",
-            "STNE",
-            "FTK.DE",
-            "AD.AS",
-            "SRG",
+            "SPY5.L"
+            
         ];
 
+        /// <summary>
+        /// Defines the percentage ranges used to categorize market drops (e.g., 3-5%, 5-7%).
+        /// </summary>
         internal static readonly List<PercentageInterval> PercentageIntervals =
         [
             new(3, 5),
@@ -185,13 +203,20 @@ namespace Shares.Domain
             new(40, 100)
         ];
 
+        /// <summary>
+        /// Defined year intervals used for historical performance comparison and data grouping.
+        /// </summary>
         internal static readonly List<YearInterval> YearIntervals =
         [
-            new(new DateTime(2021, 01, 01), new DateTime(2025, 12, 31)),
+            new(new DateTime(2024, 01, 01), new DateTime(2030, 12, 31)), // Current Period
+            new(new DateTime(2021, 01, 01), new DateTime(2023, 12, 31)),
             new(new DateTime(2016, 01, 01), new DateTime(2020, 12, 31)),
             new(new DateTime(2011, 01, 01), new DateTime(2015, 12, 31))
         ];
 
+        /// <summary>
+        /// Defines cyclic drop thresholds and corresponding stop-loss percentages.
+        /// </summary>
         internal static readonly List<PercentageIntervalForStopLoss> PercentageIntervalsForStopLoss =
         [
             new(7, 4),
