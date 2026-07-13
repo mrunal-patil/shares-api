@@ -24,8 +24,10 @@ namespace Shares.Domain.Usecases
         public async Task<Matrix> Create()
         {
             var matrix = new Matrix();
-            foreach (var ticker in Constants.CurrentPerformanceTickers)
+            foreach (var ticker in Constants.DropTickers)
             {
+                matrix.Tickers.Add(ticker);
+                
                 var cycles = new List<Cycle>();
                 foreach (var yearInterval in Constants.YearIntervals)
                 {
